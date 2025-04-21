@@ -16,7 +16,7 @@ jobs:
       - name: Set up SSH
         uses: webfactory/ssh-agent@v.0.7.0
         with:
-          ssh-private-key: ${{ secrects.SHH_key }}
+          ssh-private-key: ${{ secrects.SSH_key }}
 
       - name: Deploy via scp
         run: |
