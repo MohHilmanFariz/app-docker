@@ -7,18 +7,18 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up SSH
-        uses: webfactory/ssh-agent@v.0.7.0
+        uses: webfactory/ssh-agent@v0.7.0
         with:
-          ssh-private-key: ${{ secrets.SSH_key }}
+          ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      - name: Deploy via scp
+      - name: Deploy via SCP
         run: |
           scp -r -o StrictHostKeyChecking=no ./ azureuser@20.11.20.171:/home/azureuser/web-page-simple-docker
 
@@ -27,6 +27,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no azureuser@20.11.20.171 << 'EOF'
             cd /home/azureuser/web-page-simple-docker
             sudo docker build -t hilman/app-docker .
-            sudo docker stop $(sudo docker ps -q)
+            sudo docker stop $(sudo docker ps -q) || true
             sudo docker run -d -p 80:80 hilman/app-docker
           EOF
