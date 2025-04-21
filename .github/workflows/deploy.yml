@@ -20,7 +20,7 @@ jobs:
 
       - name: Deploy via SCP
         run: |
-          scp -r -o StrictHostKeyChecking=no ./ azureuser@20.11.20.171:/home/azureuser/web-page-simple-docker
+          rsync -avz --exclude='.git' -e "ssh -o StrictHostKeyChecking=no" ./ azureuser@20.11.20.171:/home/azureuser/web-page-simple-docker
 
       - name: Build and restart Docker
         run: |
