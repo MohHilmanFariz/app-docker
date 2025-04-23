@@ -28,7 +28,9 @@ jobs:
             cd /home/azureuser/web-page-simple-docker
             sudo docker build -t hilman/app-docker .
             sudo docker stop $(sudo docker ps -q) || true
-            sudo docker run -d -p 80:80 hilman/app-docker
+            sudo docker run -d -p 80:80 \
+              -v /home/azureuser/web-page-simple-docker/files:/usr/share/nginx/html/files \
+              hilman/app-docker
           EOF
 
       - name: Prune unused Docker images (optional)
